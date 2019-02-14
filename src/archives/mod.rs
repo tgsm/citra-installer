@@ -12,7 +12,7 @@ use std::path::PathBuf;
 
 use xz_decom;
 
-use inflate as gz_decom;
+use flate2::read::GzDecoder as gz_decom;
 
 pub trait Archive<'a> {
     /// func: iterator value, max size, file name, file contents
@@ -104,7 +104,7 @@ pub fn read_archive<'a>(name: &str, data: &'a [u8]) -> Result<Box<Archive<'a> + 
         Ok(Box::new(TarArchive { archive: tar }))
     } else if name.ends_with(".tar.gz") {
         // Decompress a .tar.gz file
-        let decompressed_data = gz_decom::DeflateDecoder::from_zlib(data);
+        let decompressed_data = gz_decom::new(data);
 
         let decompressed_contents: Box<Read> = Box::new(decompressed_data);
 

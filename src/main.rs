@@ -32,7 +32,7 @@ extern crate dirs;
 extern crate tar;
 extern crate xz_decom;
 extern crate zip;
-extern crate inflate;
+extern crate flate2;
 
 extern crate fern;
 #[macro_use]
