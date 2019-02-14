@@ -12,6 +12,8 @@ use std::path::PathBuf;
 
 use xz_decom;
 
+use inflate as gz_decom;
+
 pub trait Archive<'a> {
     /// func: iterator value, max size, file name, file contents
     fn for_each(
@@ -96,6 +98,15 @@ pub fn read_archive<'a>(name: &str, data: &'a [u8]) -> Result<Box<Archive<'a> + 
             .map_err(|x| format!("Failed to build decompressor: {:?}", x))?;
 
         let decompressed_contents: Box<Read> = Box::new(Cursor::new(decompressed_data));
+
+        let tar = UpstreamTarArchive::new(decompressed_contents);
+
+        Ok(Box::new(TarArchive { archive: tar }))
+    } else if name.ends_with(".tar.gz") {
+        // Decompress a .tar.gz file
+        let decompressed_data = gz_decom::DeflateDecoder::from_zlib(data);
+
+        let decompressed_contents: Box<Read> = Box::new(decompressed_data);
 
         let tar = UpstreamTarArchive::new(decompressed_contents);
 
