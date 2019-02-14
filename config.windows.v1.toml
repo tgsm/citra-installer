@@ -6,7 +6,7 @@ name = "Citra Nightly"
 description = "The Nightly build of Citra contains features that have already been reviewed and tested."
     [packages.source]
     name = "github"
-    match = "^citra-windows-mingw-[0-9]*-[0-9a-f]*.7z$"
+    match = "^citra-windows-mingw-[0-9]*-[0-9a-f]*.tar.gz$"
         [packages.source.config]
         repo = "citra-emu/citra-nightly"
     [[packages.shortcuts]]
@@ -20,7 +20,7 @@ description = "The Canary build of Citra contains in-development features that a
 default = true
     [packages.source]
     name = "github"
-    match = "^citra-windows-mingw-[0-9]*-[0-9a-f]*.7z$"
+    match = "^citra-windows-mingw-[0-9]*-[0-9a-f]*.tar.gz$"
         [packages.source.config]
         repo = "citra-emu/citra-canary"
     [[packages.shortcuts]]
