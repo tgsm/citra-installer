@@ -42,6 +42,7 @@ extern crate chrono;
 
 extern crate clap;
 
+#[cfg(windows)]
 extern crate winapi;
 
 mod archives;
